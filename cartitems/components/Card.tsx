@@ -1,5 +1,10 @@
+"use client"
+import { useDispatch } from 'react-redux'
+import { addItem } from '../store/cartSlice'
 import Image from "next/image"
 const Card =({data})=>{
+
+  const dispatch = useDispatch()
     return(
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">               
                  {data.map((item)=>(
@@ -12,10 +17,12 @@ const Card =({data})=>{
       height={200}
       className="rounded-xl mb-4 w-full"
     />   
-    <p className="absolute -bottom-5 left-1/2 transform -translate-x-1/2 
-                  bg-white border rounded-2xl px-3 py-1 text-gray-700">
+    <button onClick={() =>
+    dispatch(addItem({ id: item.id, name: item.name, price: item.price }))
+  } className="absolute -bottom-5 left-1/2 transform -translate-x-1/2 
+                  bg-white border rounded-2xl px-3 py-1 text-gray-700  hover:bg-blue-700 transition">
       Add to Cart
-    </p>
+    </button>
   </div>
 
   <p className="text-gray-400 mt-2">{item.category}</p>   

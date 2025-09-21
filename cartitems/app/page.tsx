@@ -1,6 +1,9 @@
+"use client"
+
 import Image from "next/image";
 import data from "@/data.json"
 import Card from "@/components/Card";
+import Cart from "@/components/Cart";
 
 export default function Home() {
   return (
@@ -11,7 +14,7 @@ export default function Home() {
             <Card data={data}/>
           </div>  
           <div className="bg-white text-black md:-mt-12 rounded-2xl p-6 ">
-            <h2 className="text-2xl bold ">Cart</h2>
+            <Cart />
             </div> 
           
   </div>
