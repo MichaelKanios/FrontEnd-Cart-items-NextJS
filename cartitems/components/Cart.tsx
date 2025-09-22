@@ -1,63 +1,118 @@
-'use client'
+"use client";
 
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../store/store'
-import { removeItem, incrementQty, decrementQty } from '../store/cartSlice'
-import { useState } from 'react'
-import OrderConfirmation from './OrderConfirmation'
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/store/store";
+import {
+  removeItem,
+  incrementQty,
+  decrementQty,
+  clearCart,
+} from "@/store/cartSlice";
+import Image from "next/image";
+import { useState } from "react";
+import OrderConfirmation from "./OrderConfirmation";
 
 export default function Cart() {
-  const { items, totalQuantity, totalAmount } = useSelector((state: RootState) => state.cart)
-  const dispatch = useDispatch()
-  const [showConfirm, setShowConfirm] = useState(false)
+  const { items, totalQuantity, totalAmount } = useSelector(
+    (state: RootState) => state.cart
+  );
+  const dispatch = useDispatch();
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const completeOrder = () => {
-    setShowConfirm(true) // ανοίγει το modal
-  }
+    setShowConfirmation(true);
+  };
 
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-6 max-w-xl mx-auto my-10 relative">
-      <h2 className="text-xl font-bold mb-4">🛒 Shopping Cart ({totalQuantity} items)</h2>
+    <div className="bg-white shadow-lg rounded-2xl p-6 w-full">
+      <h2 className="text-xl font-bold mb-4 text-rose-700">
+        Your Cart ({totalQuantity})
+      </h2>
 
-      {items.length === 0 && <p className="text-gray-500">Your cart is empty.</p>}
+      {items.length === 0 && (
+        <div className="flex flex-col justify-center">
+          <img className="w-1/2 self-center" src="./assets/images/illustration-empty-cart.svg" alt="EmptyCart" />
+          <p>Your added items will appear here</p>
 
+        </div>
+        
+      )}
+
+      {/* Cart Items */}
       <ul className="space-y-4">
-        {items.map(item => (
-          <li key={item.id} className="flex items-center justify-between border-b pb-2">
-            <div>
-              <p className="font-semibold">{item.name}</p>
-              <p className="text-gray-600">
-                ${item.price.toFixed(2)} x {item.quantity}
-              </p>
+        {items.map((item) => (
+          <li
+            key={item.id}
+            className="flex items-center justify-between border-b pb-3"
+          >
+            <div className="flex items-center gap-3">
+              <Image
+                src={item.image}
+                alt={item.name}
+                width={50}
+                height={50}
+                className="rounded-md"
+              />
+              <div>
+                <p className="font-semibold text-gray-800">{item.name}</p>
+                <p className="text-gray-500 text-sm">
+                  {item.quantity}x ${item.price.toFixed(2)}{" "}
+                  <span className="font-medium text-gray-700">
+                    = ${(item.quantity * item.price).toFixed(2)}
+                  </span>
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button onClick={() => dispatch(decrementQty(item.id))} className="px-2 py-1 bg-gray-200 rounded">
-                -
-              </button>
-              <button onClick={() => dispatch(incrementQty(item.id))} className="px-2 py-1 bg-gray-200 rounded">
-                +
-              </button>
-              <button onClick={() => dispatch(removeItem(item.id))} className="px-3 py-1 bg-red-600 text-white rounded">
-                Remove
-              </button>
-            </div>
+
+            {/* Remove Btn */}
+            <button
+              onClick={() => dispatch(removeItem(item.id))}
+              className="text-gray-400 hover:text-red-600"
+            >
+              ✕
+            </button>
           </li>
         ))}
       </ul>
 
+      {/* Total + Confirm */}
       {items.length > 0 && (
         <div className="mt-6">
-          <p className="text-lg font-semibold">Total: ${totalAmount.toFixed(2)}</p>
+          <p className="text-lg font-semibold flex justify-between">
+            <span>Order Total</span>
+            <span>${totalAmount.toFixed(2)}</span>
+          </p>
+          <div className="flex justify-center items-center gap-2 mt-2">
+            <img src="./assets/images/icon-carbon-neutral.svg" alt="carbon-icon" />
+            <p className="text-xs text-gray-500 mt-2">
+             This is a <span className="font-bold">carbon-neutral</span>{" "}
+            delivery
+          </p>
+
+          </div>
+
+          
+
           <button
             onClick={completeOrder}
-            className="mt-4 w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition"
+            className="mt-4 w-full bg-rose-700 text-white py-2 rounded-xl hover:bg-rose-800 transition"
           >
-            ✅ Complete Order
+            Confirm Order
           </button>
         </div>
       )}
 
-      {showConfirm && <OrderConfirmation onClose={() => setShowConfirm(false)} />}
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <OrderConfirmation
+          items={items}
+          totalAmount={totalAmount}
+          onClose={() => {
+            setShowConfirmation(false);
+            dispatch(clearCart());
+          }}
+        />
+      )}
     </div>
-  )
+  );
 }

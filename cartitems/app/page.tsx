@@ -13,7 +13,7 @@ export default function Home() {
           <div className="lg:col-span-3">
             <Card data={data}/>
           </div>  
-          <div className="bg-white text-black md:-mt-12 rounded-2xl p-6 ">
+          <div className=" text-black md:-mt-22 rounded-2xl p-6 ">
             <Cart />
             </div> 
           
