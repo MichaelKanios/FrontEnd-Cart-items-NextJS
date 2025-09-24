@@ -4,8 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { addItem, incrementQty, decrementQty } from "@/store/cartSlice";
 import Image from "next/image";
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  image: {
+    desktop: string;
+  };
+}
 
-const Card = ({ data }: { data: any[] }) => {
+const Card = ({ data }: { data: Product[] }) => {
+
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
