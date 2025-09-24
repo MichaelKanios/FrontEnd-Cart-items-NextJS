@@ -114,8 +114,7 @@ export default function Cart() {
       {/* Confirmation Modal */}
       {showConfirmation && (
         <OrderConfirmation
-          items={items}
-          totalAmount={totalAmount}
+          
           onClose={() => {
             setShowConfirmation(false);
             dispatch(clearCart());
