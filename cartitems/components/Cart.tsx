@@ -2,7 +2,7 @@
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store/store";
-import {removeItem,incrementQty,decrementQty,clearCart} from "@/store/cartSlice";
+import {removeItem,clearCart} from "@/store/cartSlice";
 import Image from "next/image";
 import { useState } from "react";
 import OrderConfirmation from "./OrderConfirmation";

@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image";
 import data from "@/data.json"
 import Card from "@/components/Card";
 import Cart from "@/components/Cart";

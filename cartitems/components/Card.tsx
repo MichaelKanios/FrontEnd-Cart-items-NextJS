@@ -5,7 +5,7 @@ import { RootState } from "@/store/store";
 import { addItem, incrementQty, decrementQty } from "@/store/cartSlice";
 import Image from "next/image";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const Card = ({ data }: { data: any[] }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -39,7 +39,7 @@ const Card = ({ data }: { data: any[] }) => {
                         id: item.id,
                         name: item.name,
                         price: item.price,
-                        image: item.image.desktop,
+                        
                       })
                     )
                   }
