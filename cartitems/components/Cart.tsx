@@ -2,12 +2,7 @@
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store/store";
-import {
-  removeItem,
-  incrementQty,
-  decrementQty,
-  clearCart,
-} from "@/store/cartSlice";
+import {removeItem,incrementQty,decrementQty,clearCart} from "@/store/cartSlice";
 import Image from "next/image";
 import { useState } from "react";
 import OrderConfirmation from "./OrderConfirmation";
@@ -31,7 +26,14 @@ export default function Cart() {
 
       {items.length === 0 && (
         <div className="flex flex-col justify-center">
-          <img className="w-1/2 self-center" src="./assets/images/illustration-empty-cart.svg" alt="EmptyCart" />
+          <Image 
+            src="/assets/images/illustration-empty-cart.svg" 
+            alt="EmptyCart"
+            width={150}
+            height={100}
+            className="mx-auto mb-4"
+          />
+          
           <p>Your added items will appear here</p>
 
         </div>
@@ -83,7 +85,14 @@ export default function Cart() {
             <span>${totalAmount.toFixed(2)}</span>
           </p>
           <div className="flex justify-center items-center gap-2 mt-2">
-            <img src="./assets/images/icon-carbon-neutral.svg" alt="carbon-icon" />
+
+          <Image 
+            src="/assets/images/icon-carbon-neutral.svg" 
+            alt="carbon-icon"
+            width={20}
+            height={20}
+          />
+        
             <p className="text-xs text-gray-500 mt-2">
              This is a <span className="font-bold">carbon-neutral</span>{" "}
             delivery

@@ -42,13 +42,24 @@ const Card = ({ data }: { data: any[] }) => {
                       })
                     )
                   }
-                  className="flex justify-around absolute bottom-1 left-1/2 transform -translate-x-1/2 
-                    bg-white border rounded-2xl px-4 py-1 text-black hover:border-rose-700 hover:text-rose-700 hover:cursor transition"
+                  className="flex  absolute bottom-1 left-1/2 transform -translate-x-1/2 
+                    bg-white border rounded-2xl px-4 py-2 text-nowrap text-black hover:border-rose-700 hover:text-rose-700 hover:cursor transition"
                 >
-                  <span><img src = "./assets/images/icon-add-to-cart.svg" alt="add"/></span>Add to Cart
+                  <span>
+                    <Image 
+                      src="/assets/images/icon-add-to-cart.svg" 
+                      alt="add" 
+                      width={18} 
+                      height={18}
+                      className="inline mr-4 "
+                    />
+                    
+                    
+                    </span>Add to Cart
                 </button>
               ) : (
-                <div className="text-sm absolute -bottom-1 left-1/2 transform -translate-x-1/2 flex items-center gap-8 bg-rose-700 border rounded-2xl px-2 py-2 shadow">
+                <div className="text-sm absolute  -bottom-1 left-1/2 transform -translate-x-1/2 
+                flex items-center gap-8 bg-rose-700 border rounded-2xl px-2 py-2 shadow">
                   <button
                     onClick={() => dispatch(decrementQty(item.id))}
                    className="w-6 h-6 rounded-full border-2 border-gray-300 hover:bg-white transition hover:text-rose-700"
